@@ -1,0 +1,14 @@
+{
+  "run_uuid": "patch_1794155988_3a9d46f8",
+  "run_internal_id": 2,
+  "schema_version": "bsg-arrow-store.v1",
+  "entity_count": 42,
+  "rel_count": 41,
+  "dangling_count": 0,
+  "compacted": true,
+  "is_delta": true,
+  "base_run_uuid": "current",
+  "changed_files": [
+    "composer.json"
+  ]
+}

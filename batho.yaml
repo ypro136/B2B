@@ -1,0 +1,204 @@
+schema_version: batho-config.v1
+logging:
+  level: ERROR
+  json_format: null
+  quiet: false
+  file: null
+  format: '%(message)s'
+progress:
+  enabled: true
+  style: progress
+  mininterval_s: 0.2
+  show_after_s: 2.0
+  keepalive_s: 60.0
+paths:
+  artifact_dir: .batho/artifact
+  cache_dir: .batho/cache
+  bsg_dir: .batho/bsg
+indexer:
+  max_file_size_kb: 500
+  oversize_mode: outline
+  oversize_outline_max_kb: 4096
+  max_indexed_files: 200000
+  max_workers: 0
+  ignore_patterns: []
+  ignore_files: null
+  default_patterns_file: null
+  ignore_defaults: true
+  package_roots: []
+  fail_on_warning: false
+  strict: false
+  strict_hashing: false
+  file_changelog_max_runs: 100
+watch:
+  mode: auto
+  max_staleness_ms: 60000
+  flush_threshold: 300
+  git_settle_ms: 300
+  vcs_op_hold_ms: 30000
+graph:
+  backend:
+    backend: auto
+    auto_threshold_files: 500
+    auto_threshold_entities: 30000
+    arrow_staging_dir: .batho/graph_staging
+    arrow_flush_rows: 5000
+    arrow_flush_bytes_mb: 1.0
+    arrow_recompact_delta_ratio: 0.1
+  cycle_detection:
+    enabled: true
+    fatal: false
+  orphan_pruning:
+    enabled: true
+    keep_entry_points: true
+    keep_exports: true
+flags:
+  fail_on_warning: false
+  strict: false
+  audit_log_enabled: true
+mcp:
+  enabled: true
+  tools:
+    disabled: null
+    enabled: null
+  toolsets: null
+rules:
+  enabled: true
+  auto_load_all_plugins: true
+  builtin_plugins:
+  - graph_foundation
+  - classification
+  - manifests
+  - cicd
+  - cloud_providers
+  - test_frameworks
+  - token_optimization
+  disabled_rules: []
+  custom_rules_path: null
+  custom_rules_dir: .batho/plugins
+  custom_rules_inline: []
+  strict_validation: false
+  cache_ttl: 3600
+  fail_on_rule_error: false
+plugins:
+  overrides: {}
+  core:
+    required: true
+  external:
+    enabled: false
+    select: []
+  fingerprint_in_cache: true
+  reextract_on_drift: true
+  telemetry:
+    hooks_metadata: false
+  host:
+    dispatch_order: priority_then_id
+artifact_blobs:
+  file_artifacts:
+    bsg_agent_view: true
+    bsg_storage_view: true
+    bsg_rel_view: true
+  run_artifacts:
+    context_overview: true
+    telemetry_metrics: true
+    structural_metrics: true
+    security_audit: false
+    artifact_payload: true
+    delta_stats: true
+    rule_stats: true
+    enrich_profile: true
+    enrich_score: true
+persistence:
+  batch_size: 500
+  batch_bytes_threshold: 15728640
+memory:
+  warning_threshold_mb: 800.0
+  critical_threshold_mb: 1500.0
+  rss_flush_threshold_mb: 1000.0
+  max_per_worker_mb: 150.0
+bsg:
+  parallel:
+    enabled: true
+    max_workers: 16
+    chunk_size: 50
+  cache:
+    enabled: true
+    max_size_mb: 1024
+    ttl_days: 30
+  symbol_resolution:
+    enabled: true
+    prune_unresolved: true
+  parsing:
+    error_recovery: true
+    skip_comments: false
+  bidirectional:
+    enabled: true
+    include_gaps: true
+    verify_integrity: false
+    storage_view: false
+dependency:
+  enabled: true
+  introspection:
+    enabled: true
+    mode: shallow
+    venv_auto_detect: true
+    timeout_seconds: 5
+    full_scan: false
+    popular_packages_db_path: null
+    skip_missing_env: true
+    managers: null
+  stdlib:
+    enabled: true
+    languages: null
+  cache:
+    enabled: true
+    ttl_days: 90
+  max_deps_per_manifest: 500
+extraction:
+  cache:
+    enabled: true
+    ttl_days: 30
+    max_entries: 5000
+  extract_parameters: false
+  extract_type_parameters: false
+  rationale_markers:
+  - 'WHY:'
+  - 'NOTE:'
+  rationale_markers_case_sensitive: true
+workspace: null
+project: null
+community_detection:
+  enabled: true
+  skip_threshold: 200000
+  sample_threshold: 100000
+  edge_weights:
+    CALLS: 3.0
+    INHERITS: 3.0
+    IMPLEMENTS: 3.0
+    IMPORTS: 2.0
+    READS: 1.0
+    WRITES: 1.0
+    CONTAINS: 0.0
+  min_community_entities: 3
+  max_community_fraction: 0.25
+  superhub_degree_percentile: 99.0
+  generic_dir_blocklist:
+  - src
+  - lib
+  - app
+  - core
+  - utils
+  - common
+  - shared
+  - helpers
+  - test
+  - tests
+  overview_top_n: 12
+  domain_grouping: false
+  llm:
+    enabled: false
+    provider: anthropic
+    model: claude-haiku-4-5-20251001
+    max_card_tokens: 200
+skills:
+  auto_install: true

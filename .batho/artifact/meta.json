@@ -1,0 +1,17 @@
+{
+  "schema_version": "batho-bundle.v1",
+  "generation": 11,
+  "active_files": {
+    "runs": "runs.v9.ipc",
+    "communities": "communities.ipc",
+    "file_tracking": "file_tracking.v7.ipc",
+    "agent_views": "agent_views.v8.ipc",
+    "storage_views": "storage_views.v8.ipc",
+    "rels_views": "rels_views.v8.ipc",
+    "run_artifacts": "run_artifacts.v11.ipc",
+    "workspace_manifests": "workspace_manifests.ipc",
+    "file_changelog": "file_changelog.v10.ipc"
+  },
+  "last_run_uuid": "patch_1794155988_3a9d46f8",
+  "updated_at": "2026-11-08T16:39:49.601029+00:00"
+}

@@ -1,0 +1,4 @@
+[2m2026-11-17T12:19:11.011162Z[0m [32m INFO[0m [2mmcp_server_gdb[0m[2m:[0m Starting MCP GDB Server on port 8080
+[2m2026-11-17T12:19:11.085682Z[0m [32m INFO[0m [2mmcp_core::protocol[0m[2m:[0m Received notification: "notifications/initialized"
+[2m2026-11-17T19:36:22.614433Z[0m [32m INFO[0m [2mmcp_server_gdb[0m[2m:[0m Starting MCP GDB Server on port 8080
+[2m2026-11-17T19:36:22.629359Z[0m [32m INFO[0m [2mmcp_core::protocol[0m[2m:[0m Received notification: "notifications/initialized"
