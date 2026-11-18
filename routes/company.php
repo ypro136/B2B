@@ -30,7 +30,8 @@ Route::prefix('company')
             Route::get('bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
             Route::post('bookings', [BookingController::class, 'store'])->name('bookings.store');
             Route::post('bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
-            Route::post('bookings/{booking}/change-seat', [BookingController::class, 'changeSeat'])->name('bookings.change-seat');
+            // Change-a-seat disabled for the demo: booking is by number of seats only.
+            // Route::post('bookings/{booking}/change-seat', [BookingController::class, 'changeSeat'])->name('bookings.change-seat');
 
             Route::get('seat-requests', [SeatRequestController::class, 'index'])->name('seat-requests.index');
             Route::post('seat-requests', [SeatRequestController::class, 'store'])->name('seat-requests.store');

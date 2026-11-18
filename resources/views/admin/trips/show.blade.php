@@ -109,6 +109,7 @@
         </section>
     @endif
 
+    {{-- Numbered seat map disabled for the demo: booking is by number of seats only.
     <section class="form-card">
         <div class="page-head">
             <div>
@@ -137,6 +138,7 @@
             @endforeach
         </div>
     </section>
+    --}}
 
     <section>
         <div class="page-head">

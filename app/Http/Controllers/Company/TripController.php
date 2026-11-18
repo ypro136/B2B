@@ -34,23 +34,24 @@ class TripController extends BaseController
         $company = auth()->user()?->company;
         abort_if($company === null, 403);
 
-        $trip->ensureSeats();
-        $trip->load(['seats.bookingSeat.booking.company']);
-
-        $ownSeatIds = $company->bookings()
-            ->where('trip_id', $trip->getKey())
-            ->where('status', Booking::STATUS_CONFIRMED)
-            ->with('seats')
-            ->get()
-            ->flatMap(fn (Booking $booking) => $booking->seats->pluck('trip_seat_id'))
-            ->all();
+        // Numbered seat selection disabled for the demo: the trip page no longer renders the seat picker.
+        // $trip->ensureSeats();
+        // $trip->load(['seats.bookingSeat.booking.company']);
+        //
+        // $ownSeatIds = $company->bookings()
+        //     ->where('trip_id', $trip->getKey())
+        //     ->where('status', Booking::STATUS_CONFIRMED)
+        //     ->with('seats')
+        //     ->get()
+        //     ->flatMap(fn (Booking $booking) => $booking->seats->pluck('trip_seat_id'))
+        //     ->all();
 
         return view('company::trips.show', [
             'company' => $company,
             'trip' => $trip,
             'unitPrice' => $pricing->unitPriceFor($company, $trip),
-            'occupied' => $trip->occupiedSeatIds(),
-            'ownSeatIds' => $ownSeatIds,
+            // 'occupied' => $trip->occupiedSeatIds(),
+            // 'ownSeatIds' => $ownSeatIds,
         ]);
     }
 }

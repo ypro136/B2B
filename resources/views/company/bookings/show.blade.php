@@ -65,6 +65,7 @@
         </div>
     </section>
 
+    {{-- Change a seat disabled for the demo: booking is by number of seats only.
     @if ($booking->status === \App\Models\Booking::STATUS_CONFIRMED)
         <section class="form-card">
             <h2>Change a seat</h2>
@@ -94,6 +95,7 @@
             </form>
         </section>
     @endif
+    --}}
 
     <section>
         <div class="page-head">

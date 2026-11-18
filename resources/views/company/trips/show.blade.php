@@ -1,8 +1,8 @@
 @extends($layout)
 
-@section('title', 'Select seats')
+@section('title', 'Book seats')
 @section('eyebrow', 'Company Portal')
-@section('page-title', 'Select seats')
+@section('page-title', 'Book seats')
 
 @php
     $remainingOnTrip = $trip->remainingSeats();
@@ -41,6 +41,9 @@
         <div class="alert alert-error">This trip is not open for booking. The departure may be too close or the trip is no longer scheduled.</div>
     @endif
 
+    <p class="muted">Specific seat selection is disabled for the demo. Booking is by number of seats; seats are assigned automatically. Go back to the trips list and use the <strong>Seats</strong> field and <strong>Book</strong> button.</p>
+
+    {{-- Numbered seat selection disabled for the demo: booking is by number of seats only.
     <div class="seat-legend">
         <span><i class="seat-dot seat-dot-free"></i> Available</span>
         <span><i class="seat-dot seat-dot-own"></i> Your seats</span>
@@ -73,8 +76,10 @@
             <a class="btn btn-ghost" href="{{ route('company.bookings.index') }}">My bookings</a>
         </div>
     </form>
+    --}}
 @endsection
 
+{{-- Numbered seat selection disabled for the demo.
 @push('scripts')
     <script>
         (() => {
@@ -99,3 +104,4 @@
         })();
     </script>
 @endpush
+--}}

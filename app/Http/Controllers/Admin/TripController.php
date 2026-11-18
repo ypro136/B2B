@@ -100,10 +100,10 @@ class TripController extends BaseController
      */
     public function show(Trip $trip): View
     {
-        $trip->ensureSeats();
-
+        // Numbered seat map disabled for the demo: the admin trip page no longer renders the seat map.
+        // $trip->ensureSeats();
+        // $trip->load(['seats.bookingSeat.booking.company']);
         $trip->load([
-            'seats.bookingSeat.booking.company',
             'bookings.company',
             'bookings.bookedBy',
             'bookings.seats',
@@ -113,7 +113,7 @@ class TripController extends BaseController
         return view('admin::trips.show', [
             'trip' => $trip,
             'companies' => Company::query()->orderBy('name')->get(),
-            'occupied' => $trip->occupiedSeatIds(),
+            // 'occupied' => $trip->occupiedSeatIds(),
         ]);
     }
 

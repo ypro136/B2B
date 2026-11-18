@@ -37,14 +37,15 @@ class BookingController extends BaseController
 
         $booking->load(['trip.seats', 'seats', 'bookedBy', 'allocations.payment', 'documents']);
 
-        $freeSeats = $booking->trip->seats()
-            ->whereNotIn('id', $booking->trip->occupiedSeatIds())
-            ->orderBy('seat_number')
-            ->pluck('seat_number');
+        // Numbered seat selection disabled for the demo: freeSeats was only used by the change-seat form.
+        // $freeSeats = $booking->trip->seats()
+        //     ->whereNotIn('id', $booking->trip->occupiedSeatIds())
+        //     ->orderBy('seat_number')
+        //     ->pluck('seat_number');
 
         return view('company::bookings.show', [
             'booking' => $booking,
-            'freeSeats' => $freeSeats,
+            // 'freeSeats' => $freeSeats,
         ]);
     }
 
@@ -55,8 +56,9 @@ class BookingController extends BaseController
     {
         $data = $request->validate([
             'trip_id' => ['required', 'integer', 'exists:trips,id'],
-            'seats' => ['nullable', 'array'],
-            'seats.*' => ['integer', 'min:1'],
+            // Numbered seat selection disabled for the demo: booking is by number of seats only.
+            // 'seats' => ['nullable', 'array'],
+            // 'seats.*' => ['integer', 'min:1'],
             'seats_count' => ['nullable', 'integer', 'min:1', 'max:1000'],
         ]);
 
@@ -70,11 +72,12 @@ class BookingController extends BaseController
 
         $trip = Trip::query()->findOrFail($data['trip_id']);
 
-        if (! empty($data['seats'])) {
-            $booking = $bookings->bookSeats($company, $trip, $request->user(), $data['seats']);
-        } else {
+        // Numbered seat selection disabled for the demo: book by number of seats needed.
+        // if (! empty($data['seats'])) {
+        //     $booking = $bookings->bookSeats($company, $trip, $request->user(), $data['seats']);
+        // } else {
             $booking = $bookings->book($company, $trip, $request->user(), (int) ($data['seats_count'] ?? 1));
-        }
+        // }
 
         return redirect()
             ->route('company.bookings.show', $booking)
@@ -93,22 +96,23 @@ class BookingController extends BaseController
         return back()->with('status', 'Booking cancelled and seats released.');
     }
 
-    /**
-     * Move a booked seat to a free seat on the same trip.
-     */
-    public function changeSeat(Request $request, Booking $booking, BookingService $bookings): RedirectResponse
-    {
-        $this->authorizeBooking($booking);
-
-        $data = $request->validate([
-            'from_seat' => ['required', 'integer', 'min:1'],
-            'to_seat' => ['required', 'integer', 'min:1', 'different:from_seat'],
-        ]);
-
-        $bookings->changeSeat($booking, (int) $data['from_seat'], (int) $data['to_seat'], $request->user());
-
-        return back()->with('status', 'Seat changed to '.$data['to_seat'].'.');
-    }
+    // Change-a-seat disabled for the demo: booking is by number of seats only.
+    // /**
+    //  * Move a booked seat to a free seat on the same trip.
+    //  */
+    // public function changeSeat(Request $request, Booking $booking, BookingService $bookings): RedirectResponse
+    // {
+    //     $this->authorizeBooking($booking);
+    //
+    //     $data = $request->validate([
+    //         'from_seat' => ['required', 'integer', 'min:1'],
+    //         'to_seat' => ['required', 'integer', 'min:1', 'different:from_seat'],
+    //     ]);
+    //
+    //     $bookings->changeSeat($booking, (int) $data['from_seat'], (int) $data['to_seat'], $request->user());
+    //
+    //     return back()->with('status', 'Seat changed to '.$data['to_seat'].'.');
+    // }
 
     private function authorizeBooking(Booking $booking): void
     {

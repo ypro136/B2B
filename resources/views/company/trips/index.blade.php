@@ -37,7 +37,8 @@
                         <td>{{ $remaining }}</td>
                         <td>
                             @if ($remaining > 0 && $available > 0)
-                                <a class="btn btn-small btn-ghost" href="{{ route('company.trips.show', $trip) }}">Select seats</a>
+                                {{-- Seat selection disabled for the demo: booking is by number of seats only. --}}
+                                {{-- <a class="btn btn-small btn-ghost" href="{{ route('company.trips.show', $trip) }}">Select seats</a> --}}
                                 <form method="POST" action="{{ route('company.bookings.store') }}" class="inline-form">
                                     @csrf
                                     <input type="hidden" name="trip_id" value="{{ $trip->id }}">
