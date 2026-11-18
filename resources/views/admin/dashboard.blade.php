@@ -45,6 +45,58 @@
         </article>
     </section>
 
+    <section>
+        <div class="page-head">
+            <div>
+                <h2>Bookings done today</h2>
+                <p class="muted">All bookings created today, marked whether they carry a confirmed payment or not.</p>
+            </div>
+        </div>
+
+        <div class="table-wrap" style="margin-top: 12px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Company</th>
+                        <th>Trip</th>
+                        <th>Seats</th>
+                        <th>Amount</th>
+                        <th>Remaining</th>
+                        <th>Status</th>
+                        <th>Payment</th>
+                        <th>Booked</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($todaysBookings as $booking)
+                        <tr>
+                            <td>#{{ $booking->id }}</td>
+                            <td class="strong">{{ $booking->company?->name }}</td>
+                            <td>{{ $booking->trip?->route_name }}</td>
+                            <td>{{ $booking->seats_count }}</td>
+                            <td>{{ number_format((float) $booking->total_amount, 2) }} {{ $booking->currency }}</td>
+                            <td>{{ number_format($booking->remainingDue(), 2) }} {{ $booking->currency }}</td>
+                            <td><span class="badge {{ $booking->status === 'CONFIRMED' ? 'badge-success' : 'badge-muted' }}">{{ $booking->status }}</span></td>
+                            <td>
+                                @if ($booking->confirmed_payment_allocations_count > 0)
+                                    <span class="badge badge-success">Confirmed payment</span>
+                                @else
+                                    <span class="badge badge-warning">No payment</span>
+                                @endif
+                            </td>
+                            <td class="nowrap">{{ $booking->created_at?->format('H:i') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="9" class="muted" style="text-align: center; padding: 16px;">No bookings done today yet.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </section>
+
     @if ($recentPayments->isNotEmpty())
         <section>
             <div class="page-head">

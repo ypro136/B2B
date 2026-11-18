@@ -32,6 +32,17 @@ class DashboardController extends BaseController
                 ['label' => 'Outstanding', 'value' => number_format($outstanding, 2).' EGP'],
                 ['label' => 'Documents to approve', 'value' => Document::query()->where('state', Document::STATE_DRAFT)->count()],
             ],
+            'todaysBookings' => Booking::query()
+                ->whereDate('created_at', today())
+                ->with(['company', 'trip'])
+                ->withCount([
+                    'allocations as confirmed_payment_allocations_count' => fn (Builder $query) => $query->whereHas(
+                        'payment',
+                        fn (Builder $payment) => $payment->where('status', PaymentRecord::STATUS_CONFIRMED),
+                    ),
+                ])
+                ->latest()
+                ->get(),
             'recentRequests' => SeatRequest::query()
                 ->with(['company', 'requester'])
                 ->latest()
